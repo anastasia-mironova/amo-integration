@@ -1,0 +1,22 @@
+{
+    "0": {
+        "name": "cp",
+        "count": 0,
+        "prefix": "\/cpa"
+    },
+    "1": {
+        "name": "social",
+        "count": 0,
+        "prefix": "\/social"
+    },
+    "2": {
+        "name": "organic",
+        "count": 0,
+        "prefix": "\/organic"
+    },
+    "3": {
+        "name": "search",
+        "count": 0,
+        "prefix": "\/search"
+    }
+}

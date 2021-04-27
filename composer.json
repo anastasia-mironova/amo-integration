@@ -1,0 +1,6 @@
+{
+    "require": {
+        "amocrm/amocrm-api-library": "^0.4.6",
+        "ext-json": "*"
+    }
+}
