@@ -45,10 +45,11 @@ if (!(isset($accessToken)
     && isset($accessToken['access_token'])
     && isset($accessToken['refresh_token'])
     && isset($accessToken['expires_in']))) {
-    $accessToken = getToken($authData);
-    //$accessToken = json_decode(file_get_contents(TOKEN_FILE), true);
+   // $accessToken = getToken($authData);
+   $accessToken = json_decode(file_get_contents(TOKEN_FILE), true);
 }
 $apiClient = new AmoCRMApiClient($authData['client_id'], $authData['client_secret'], $authData['redirect_uri']);
+print_r($authData);
 $apiClient->setAccountBaseDomain($authData['baseDomain']);
 
 
@@ -65,8 +66,8 @@ $apiClient->setAccessToken(new AccessToken([
 // header("Access-Control-Allow-Headers: *");
 // print_r($_SERVER['REQUEST_METHOD']);
 //Получаем список сделок в виде массива
-$filter = new LeadsFilter();
-$temp = $apiClient->leads()->get($filter->set);
+// $filter = new LeadsFilter();
+$temp = $apiClient->leads()->getOne();
 print_r($temp);
 // try {
 //     $leadsArr = $apiClient->leads()->get()->all();

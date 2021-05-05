@@ -4,7 +4,7 @@
 
 function getToken($authData)
 {
-
+   
     $data = [
         'client_id' => $authData['client_id'],
         'client_secret' => $authData['client_secret'],
@@ -67,7 +67,7 @@ function getToken($authData)
      * нам придётся перевести ответ в формат, понятный PHP
      */
     $response = json_decode($out, true);
-
+    print_r($response);
 
     file_put_contents(TOKEN_FILE, json_encode($response));
     return $response;
