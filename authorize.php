@@ -37,7 +37,7 @@ function getToken($authData)
     curl_setopt($curl, CURLOPT_DNS_USE_GLOBAL_CACHE, false );
     curl_setopt($curl, CURLOPT_DNS_CACHE_TIMEOUT, 2 );
     $out = curl_exec($curl); //Инициируем запрос к API и сохраняем ответ в переменную
-    print_r($out);
+    // print_r($out);
     $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $e = curl_error($curl);
     curl_close($curl);
@@ -67,7 +67,7 @@ function getToken($authData)
      * нам придётся перевести ответ в формат, понятный PHP
      */
     $response = json_decode($out, true);
-    print_r($response);
+ 
 
     file_put_contents(TOKEN_FILE, json_encode($response));
     return $response;
