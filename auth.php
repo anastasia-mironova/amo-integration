@@ -23,7 +23,9 @@ require_once "authorize.php";
 /*
      * Перед началом работы с программой необзходимо записать свои данные интеграции в файл data_info.json.
      */
+/*
 
+*/
 function auth()
 {
     //Проверяем наличие файлов с аутентификационными данными
@@ -52,7 +54,6 @@ function auth()
         $accessToken = json_decode(file_get_contents(TOKEN_FILE), true);
     }
     $apiClient = new AmoCRMApiClient($authData['client_id'], $authData['client_secret'], $authData['redirect_uri']);
-    // print_r($authData);
     $apiClient->setAccountBaseDomain($authData['baseDomain']);
 
 

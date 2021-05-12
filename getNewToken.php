@@ -81,4 +81,4 @@ catch(\Exception $e)
 {
 	die('Ошибка: ' . $e->getMessage() . PHP_EOL . 'Код ошибки: ' . $e->getCode());
 }
-file_put_contents('TOKEN_FILE', json_encode($out));
+file_put_contents('token_info.json', json_encode($out));
