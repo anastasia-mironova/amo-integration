@@ -25,24 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '226a82dee277b944063a52304ad44a0a0ea95ea3',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '226a82dee277b944063a52304ad44a0a0ea95ea3',
     ),
     'amocrm/amocrm-api-library' => 
     array (
@@ -88,6 +88,78 @@ private static $installed = array (
       array (
       ),
       'reference' => '9d94dc0154230ac39e5bf89398b324a86f63f765',
+    ),
+    'firebase/php-jwt' => 
+    array (
+      'pretty_version' => 'v5.2.1',
+      'version' => '5.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f42c9110abe98dd6cfe9053c49bc86acc70b2d23',
+    ),
+    'google/auth' => 
+    array (
+      'pretty_version' => 'v1.15.1',
+      'version' => '1.15.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4e0c9367719df9703e96f5ad613041b87742471c',
+    ),
+    'google/common-protos' => 
+    array (
+      'pretty_version' => '1.3',
+      'version' => '1.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '535f489ff1c3433c0ea64cd5aa0560f926949ac5',
+    ),
+    'google/gax' => 
+    array (
+      'pretty_version' => 'v1.7.1',
+      'version' => '1.7.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '48cd41dbea7b8fece8c41100022786d149de64ca',
+    ),
+    'google/grpc-gcp' => 
+    array (
+      'pretty_version' => '0.1.5',
+      'version' => '0.1.5.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bb9bdbf62f6ae4e73d5209d85b1d0a0b9855ff36',
+    ),
+    'google/protobuf' => 
+    array (
+      'pretty_version' => 'v3.17.0',
+      'version' => '3.17.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a3aa9415fb6f331322728793f345c1eafc320970',
+    ),
+    'googleads/google-ads-php' => 
+    array (
+      'pretty_version' => 'v9.0.0',
+      'version' => '9.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8dbfead3011a68658cd9a9af8b901156a9cd072a',
+    ),
+    'grpc/grpc' => 
+    array (
+      'pretty_version' => '1.36.0',
+      'version' => '1.36.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6145dd917d340b579f0b663940b17cc93172b79a',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -170,6 +242,15 @@ private static $installed = array (
       ),
       'reference' => 'badb01e62383430706433191b82506b6df24ad98',
     ),
+    'monolog/monolog' => 
+    array (
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1cb1cde8e8dd0f70cc0fe51354a59acad9302084',
+    ),
     'nesbot/carbon' => 
     array (
       'pretty_version' => '2.46.0',
@@ -187,6 +268,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+    ),
+    'psr/cache' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
     ),
     'psr/container' => 
     array (
@@ -227,6 +317,22 @@ private static $installed = array (
       'provided' => 
       array (
         0 => '1.0',
+      ),
+    ),
+    'psr/log' => 
+    array (
+      'pretty_version' => '1.1.4',
+      'version' => '1.1.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
+    ),
+    'psr/log-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0.0',
       ),
     ),
     'psr/simple-cache' => 
@@ -341,6 +447,15 @@ private static $installed = array (
       array (
         0 => '2.3',
       ),
+    ),
+    'vkcom/vk-php-sdk' => 
+    array (
+      'pretty_version' => '5.101.0',
+      'version' => '5.101.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '46a8f76503050c0c6730359fc234a4d6448b8653',
     ),
     'voku/portable-ascii' => 
     array (

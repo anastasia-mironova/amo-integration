@@ -1,6 +1,13 @@
 {
     "require": {
         "amocrm/amocrm-api-library": "^0.4.6",
-        "ext-json": "*"
+        "ext-json": "*",
+        "googleads/google-ads-php": "^9.0",
+        "vkcom/vk-php-sdk": "^5.101"
+    },
+    "autoload": {
+        "psr-4": {
+            "VK\\": "vkcom/vk-php-sdk"
+        }
     }
 }
