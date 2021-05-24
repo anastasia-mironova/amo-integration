@@ -2,20 +2,39 @@
 include 'vendor/autoload.php';
 
 use VK\Client\VKApiClient;
-$vk = new VKApiClient();
+// $client_id = 7858205; // ID приложения
+$client_secret = 'B36lQXNywqJJdHZ3zNrx'; // Защищённый ключ
+//$redirect_uri = 'https://76faf3503a10.ngrok.io/phptest/vkAuth.php'; // Адрес сайта
+$vk = new VKApiClient('5.101');
 $oauth = new VK\OAuth\VKOAuth();
-$client_id = 7856501;
-$client_secret='aad52533aad52533aad525330eaaa2c446aaad5aad52533ca773ee9776fb683f0204496';
-$redirect_uri = 'https://5b19064e8a8f.ngrok.io/phptest/vkAuth.php';
-$display = VK\OAuth\VKOAuthDisplay::PAGE;
+$client_id = 7858235;
+$redirect_uri = 'https://76faf3503a10.ngrok.io/phptest/vkAuth.php';
+$display = VK\OAuth\VKOAuthDisplay::POPUP;
 $scope = [VK\OAuth\Scopes\VKOAuthUserScope::ADS];
-$state = 'test';
-//$code = '4ZJ4vTDBF3FtxziHaEfo';
+$state = 'auth';
+$browser_url = $oauth->getAuthorizeUrl(VK\OAuth\VKOAuthResponseType::CODE, $client_id, $redirect_uri, $display, $scope, $state);
+echo '<a href="' . $browser_url . '">Разрешение доступа</a>';
+if (isset($_GET['code'])) {
+    $code = $_GET['code'];
+    echo $code;
+}
 
-//$code = 'CODE';
-$browser_url = $oauth->getAuthorizeUrl(VK\OAuth\VKOAuthResponseType::TOKEN, $client_id, $redirect_uri, $display, $scope, $state);
-// print_r($browser_url);
-// $response = $oauth->getAccessToken($client_id, $client_secret, $redirect_uri, $code);
-// print_r($response);
-// $access_token = $response['access_token'];
-// print_r($access_token);
+
+try {
+    $response = $oauth->getAccessToken($client_id, $client_secret, $redirect_uri, $code);
+    $access_token = $response['access_token'];
+    print_r($response);
+    echo '<br>';
+    $response = $vk->ads()->getCampaigns($access_token, [
+        'account_id'  => 1606366398,
+        'include_deleted'    => 0,
+    ]);
+    foreach ($response as $res) {
+        print_r($res);
+        echo '<br>';
+        echo '<br>';
+    }
+} catch (Exception $e) {
+    echo '<br>';
+    echo 'Нажмите на ссылку разрешения доступа';
+}
