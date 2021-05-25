@@ -3,9 +3,8 @@
         "amocrm/amocrm-api-library": "^0.4.6",
         "ext-json": "*",
         "vkcom/vk-php-sdk": "^5.101",
-        "google/apiclient": "^2.9",
         "googleads/googleads-php-lib": "^53.0",
-        "googleads/google-ads-php": "^9.0"
+        "facebook/php-business-sdk": "^10.0"
     },
     "autoload": {
         "psr-4": {

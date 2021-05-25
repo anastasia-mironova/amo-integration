@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '971668dd9862441eb9a9da75a9167f4df51e688a',
+    'reference' => '63ca0d4853cfab97a2d6314ffd4edb3ab8d3c8bd',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '971668dd9862441eb9a9da75a9167f4df51e688a',
+      'reference' => '63ca0d4853cfab97a2d6314ffd4edb3ab8d3c8bd',
     ),
     'amocrm/amocrm-api-library' => 
     array (
@@ -80,6 +80,15 @@ private static $installed = array (
       ),
       'reference' => '9cf661f4eb38f7c881cac67c75ea9b00bf97b210',
     ),
+    'facebook/php-business-sdk' => 
+    array (
+      'pretty_version' => '10.0.1',
+      'version' => '10.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a4b73f96770c28012a84736c75bc87e52d6948b9',
+    ),
     'fig/http-message-util' => 
     array (
       'pretty_version' => '1.1.5',
@@ -98,24 +107,6 @@ private static $installed = array (
       ),
       'reference' => 'f42c9110abe98dd6cfe9053c49bc86acc70b2d23',
     ),
-    'google/apiclient' => 
-    array (
-      'pretty_version' => 'v2.9.1',
-      'version' => '2.9.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '2fb6e702aca5d68203fa737f89f6f774022494c6',
-    ),
-    'google/apiclient-services' => 
-    array (
-      'pretty_version' => 'v0.175.0',
-      'version' => '0.175.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '316cbf9b02c575a140d8cbeca48a3ca0070fcd5a',
-    ),
     'google/auth' => 
     array (
       'pretty_version' => 'v1.15.1',
@@ -125,51 +116,6 @@ private static $installed = array (
       ),
       'reference' => '4e0c9367719df9703e96f5ad613041b87742471c',
     ),
-    'google/common-protos' => 
-    array (
-      'pretty_version' => '1.3',
-      'version' => '1.3.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '535f489ff1c3433c0ea64cd5aa0560f926949ac5',
-    ),
-    'google/gax' => 
-    array (
-      'pretty_version' => 'v1.7.1',
-      'version' => '1.7.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '48cd41dbea7b8fece8c41100022786d149de64ca',
-    ),
-    'google/grpc-gcp' => 
-    array (
-      'pretty_version' => '0.1.5',
-      'version' => '0.1.5.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'bb9bdbf62f6ae4e73d5209d85b1d0a0b9855ff36',
-    ),
-    'google/protobuf' => 
-    array (
-      'pretty_version' => 'v3.17.0',
-      'version' => '3.17.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a3aa9415fb6f331322728793f345c1eafc320970',
-    ),
-    'googleads/google-ads-php' => 
-    array (
-      'pretty_version' => 'v9.0.0',
-      'version' => '9.0.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8dbfead3011a68658cd9a9af8b901156a9cd072a',
-    ),
     'googleads/googleads-php-lib' => 
     array (
       'pretty_version' => '53.0.0',
@@ -178,15 +124,6 @@ private static $installed = array (
       array (
       ),
       'reference' => 'be46b8345975433612bfc9af10d8383c2c1799a5',
-    ),
-    'grpc/grpc' => 
-    array (
-      'pretty_version' => '1.36.0',
-      'version' => '1.36.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '6145dd917d340b579f0b663940b17cc93172b79a',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -287,15 +224,6 @@ private static $installed = array (
       ),
       'reference' => 'd3c447f21072766cddec3522f9468a5849a76147',
     ),
-    'paragonie/constant_time_encoding' => 
-    array (
-      'pretty_version' => 'v2.4.0',
-      'version' => '2.4.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'f34c2b11eb9d2c9318e13540a1dbc2a3afbd939c',
-    ),
     'paragonie/random_compat' => 
     array (
       'pretty_version' => 'v9.99.100',
@@ -331,15 +259,6 @@ private static $installed = array (
       array (
       ),
       'reference' => '6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0',
-    ),
-    'phpseclib/phpseclib' => 
-    array (
-      'pretty_version' => '3.0.8',
-      'version' => '3.0.8.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd9615a6fb970d9933866ca8b4036ec3407b020b6',
     ),
     'psr/cache' => 
     array (
