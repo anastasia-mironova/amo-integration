@@ -1,0 +1,14 @@
+{
+    "name": "phptest",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/anastasia-mironova/amo-integration.git",
+    "author": "anastasia mironova <anast.mir22@yandex.ru>",
+    "license": "MIT",
+    "dependencies": {
+        "facebook-nodejs-business-sdk": "^10.0.1",
+        "google-ads-api": "^5.2.0",
+        "yandex-direct-api": "^1.0.6"
+    },
+    "type": "module"
+}
