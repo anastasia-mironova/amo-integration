@@ -6,6 +6,8 @@
     "author": "anastasia mironova <anast.mir22@yandex.ru>",
     "license": "MIT",
     "dependencies": {
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
         "facebook-nodejs-business-sdk": "^10.0.1",
         "google-ads-api": "^5.2.0",
         "https": "^1.0.0",

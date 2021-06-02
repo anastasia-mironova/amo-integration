@@ -17,6 +17,7 @@ use AmoCRM\Models\WebhookModel;
 
 define('DATA_FILE', 'data_info.json');
 //15.04.2021
+
 define('TOKEN_FILE', 'token_info.json');
 
 require_once "authorize.php";
