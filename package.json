@@ -8,6 +8,7 @@
     "dependencies": {
         "facebook-nodejs-business-sdk": "^10.0.1",
         "google-ads-api": "^5.2.0",
+        "https": "^1.0.0",
         "yandex-direct-api": "^1.0.6"
     },
     "type": "module"
