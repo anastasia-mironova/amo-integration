@@ -8,12 +8,7 @@ const requestHandler = (request, response) => {
     const options = {
         url: 'https://api.direct.yandex.com/json/v5/campaigns',
         method: 'POST',
-        // headers: {
-        //     'Authorization': `Bearer ${token}`, // OAuth-токен. Использование слова Bearer обязательно
-        //     "Client-Login": "MCPRmarketing@yandex.ru", // Логин клиента рекламного агентства
-        //     "Accept-Language": "ru",
-        //     'Content-Type': "application/json; charset=utf-8"
-        // },
+        
         body: {
             method: "get",
             params: {

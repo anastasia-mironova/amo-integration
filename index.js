@@ -12,11 +12,12 @@ const app = express();
 const port = 3000;
 
 
-import vKAuthFirstStep from './vk.js'; // импортируем наш метод
+import {vKAuthFirstStep, vkLoginComplete} from './vk.js'; // импортируем наш метод
 
 
 
 app.get('/login/vk', (req, res) => vKAuthFirstStep(res));
+app.get('/login/vk/complete', vkLoginComplete);
 app.get('/', (req, res) => res.send('Hello World!'));
 
 
@@ -24,11 +25,8 @@ const options = {
     key: fs.readFileSync('./security/server.key','utf8'),
     cert: fs.readFileSync('./security/server.cert','utf8')
 }
-console.log("KEY: ", options.key)  
-console.log("CERT: ", options.cert)  
+// console.log("KEY: ", options.key)  
+// console.log("CERT: ", options.cert)  
 const secureServer = https.createServer(options, app).listen(port, () => {  
-    console.log(">> CentraliZr listening at port " + port);  
+    console.log(`Example app listening at http://localhost:${port}`);  
 }); 
-//app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
-//await getGoogleCampaign()
-

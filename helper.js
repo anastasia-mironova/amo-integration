@@ -21,19 +21,23 @@ import axios from  'axios'
             (e) => ({ status: e.response.status, error: e.response.data.error })
         );
         if (!result) {
+            console.log('kdkdk')
             return {};
         }
         if (result.status === 400) {
             const errMessage = result.error.message;
             if (errMessage) {
                 console.error(errMessage);
+                console.log('kdkdk2')
                 return {};
             }
+            console.log('kdkdk3')
             return {};
         }
         return result.data;
     } catch (error) {
         console.error('fetch api error', error);
+        console.log('kdkdk4')
         return {};
     }
 };
