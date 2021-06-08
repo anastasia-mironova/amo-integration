@@ -14,6 +14,7 @@ const port = 3000;
 
 import {vKAuthFirstStep, vkLoginComplete} from './vk.js'; // импортируем наш метод
 import getToken from './amoAuth.js'
+import getAccessToken from './getAccessAmoToken.js'
 
 
 app.get('/login/vk', (req, res) => vKAuthFirstStep(res));
@@ -23,7 +24,7 @@ app.get('/login/vk/complete', vkLoginComplete);
 app.get('/amo/auth', getToken);
 app.get('/', (req, res) => res.send('<h1>Hello World!</h1>'));
 
-
+getAccessToken();
 const options = {
     key: fs.readFileSync('./security/server.key','utf8'),
     cert: fs.readFileSync('./security/server.cert','utf8')
