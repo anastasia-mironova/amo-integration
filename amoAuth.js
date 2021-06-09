@@ -1,4 +1,5 @@
 import https from 'https';
+import fs from 'fs';  
  const getToken = ()=>{
     const data = JSON.stringify({
         'client_id' : `${process.env.AMO_CLIENT_ID}`,
@@ -23,6 +24,11 @@ import https from 'https';
     
         res.on('data', d => {
             process.stdout.write(d)
+            if(res.statusCode==200){
+
+                fs.writeFileSync('amo_token.json', d.toString());
+            }
+            
         })
     })
     

@@ -21,9 +21,9 @@ app.get('/login/vk', (req, res) => vKAuthFirstStep(res));
 app.get('/login/vk/complete', vkLoginComplete);
 
 
-app.get('/amo/auth', getToken);
+//app.get('/amo/auth', getToken);
 app.get('/', (req, res) => res.send('<h1>Hello World!</h1>'));
-
+//getToken()
 getAccessToken();
 const options = {
     key: fs.readFileSync('./security/server.key','utf8'),
