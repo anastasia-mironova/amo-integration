@@ -4,7 +4,7 @@ import fs from 'fs';
     console.log('kek')
     let rawdata = fs.readFileSync('./utils/amo_token.json');
     const tokens = JSON.parse(rawdata);
-    console.log(tokens)
+    console.log(tokens['refresh_token'])
     const data = JSON.stringify({
         'client_id' : process.env.AMO_CLIENT_ID,
         'client_secret' : process.env.AMO_CLIENT_SECRET,
@@ -27,10 +27,7 @@ import fs from 'fs';
         console.log(`statusCode: ${res.statusCode}`)
     
         res.on('data', d => {
-           //console.log(d.toString())
             process.stdout.write(d)
-            console.log("rkklfvmlm")
-            console.log(d.toString())
             if(res.statusCode==200){
 
                 fs.writeFileSync('./utils/amo_token.json', d.toString());

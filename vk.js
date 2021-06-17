@@ -1,6 +1,6 @@
 import { buildQueryString, callApi } from './helper.js'; // импортируем наших помощников.
 
-
+import addUniqueCampaigns from "./addUniqueCampaign.js";
 
 const scopes = ['ads']; // рамки того, что мы будем запрашивать
 
@@ -84,7 +84,17 @@ const vkLoginComplete = async (req, res) => {
   const campaignsInfo = await getCampaignsInfo('4dd066663361890aad5410a0ddef9ded1529ac04ff43035b71f2f43de6cbeddc00b81f59ea0716a76890d','1606366398');
     console.debug('Successfully got information about authorized user');
 
-  return res.send(`Successfully got information about campaign ${JSON.stringify(campaignsInfo.data.response)}`)
+// campaignsInfo.data.response  
+// addUniqueCampaigns (el['name']
+   const campaigns = campaignsInfo.data.response;
+   
+   for (let index = 0; index < campaigns.length; index++) {
+    
+    addUniqueCampaigns( campaigns[index]['name']);
+     
+   }
+
+  return res.send(`Successfully got information about campaign ${JSON.stringify(  campaignsInfo.data.response)}`)
 
 };
 
@@ -113,6 +123,7 @@ const getCampaignsInfo = async (accessToken, accountId) => {
 
   const { id, name, status } = data;
  console.log(data)
+
   return {
 
    data

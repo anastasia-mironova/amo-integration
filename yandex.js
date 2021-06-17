@@ -1,4 +1,5 @@
 import https from 'https'
+import addUniqueCampaigns from "./addUniqueCampaign.js";
 
 const token = 'AQAAAAAjg-SlAAcd6Fqy3PLVqkaVp1Jg5-CWj_U';
 
@@ -33,6 +34,18 @@ const req = https.request(options, res => {
 
     res.on('data', d => {
         process.stdout.write(d)
+        if(res.statusCode==200){
+            console.log("        ")
+            const campaings = JSON.parse(d)['result']['Campaigns']
+            // campaings.array.forEach(element => {
+            //     console.log(element['Name'])
+            // });
+            for (let index = 0; index < campaings.length; index++) {
+                const element = campaings[index];
+                addUniqueCampaigns(element['Name'])
+                
+            }
+        }
     })
 })
 

@@ -47,4 +47,5 @@ import { enums } from "google-ads-api";
     });
     console.log(campaigns)
 }
-export {getGoogleCampaign}
+getGoogleCampaign()
+//export {getGoogleCampaign}
