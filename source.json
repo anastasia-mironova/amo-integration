@@ -1,0 +1,97 @@
+{
+    "0": {
+        "column": "yandex/cpa",
+        "field": ["yandex", "cp"],
+        "count": 0
+    },
+    "1": {
+        "column": "yandex/organic",
+        "field": ["yandex", "organic"],
+        "count": 0
+    },
+    "2": {
+        "column": "google/cpa",
+        "field": ["google","cp"],
+        "count": 0
+    },
+    "3": {
+        "column": "google/organic",
+        "field": ["google","organic"],
+        "count": 0
+    },
+    "4": {
+        "column": "instagram/cpa",
+        "field": ["instagram","cp"],
+        "count": 0
+    },
+    "5": {
+        "column": "instagram/social",
+        "field": ["instagram","social"],
+        "count": 0
+    },
+    "6": {
+        "column": "facebook/social",
+        "field": ["facebook","social"],
+        "count": 0
+    },
+    "7": {
+        "column": "facebook/cpa",
+        "field": ["facebook","cp"],
+        "count": 0
+    },
+    "8": {
+        "column": "odnoklassniki/cpa",
+        "field": ["odnoklassniki","cp"],
+        "count": 0
+    },
+    "9": {
+        "column": "odnoklassniki/social",
+        "field": ["odnoklassniki","social"],
+        "count": 0
+    },
+    "10": {
+        "column": "vkontakte/cpa",
+        "field": ["vkontakte","cp"],
+        "count": 0
+    },
+    "11": {
+        "column": "vkontakte/social",
+        "field": ["vkontakte","social"],
+        "count": 0
+    },
+    "12": {
+        "column": "email",
+        "field": ["email"],
+        "count": 0
+    },
+    "13": {
+        "column": "doublegis",
+        "field": ["2 \u0413\u0418\u0421"],
+        "count": 0
+    },
+    "14": {
+        "column": "doublegis",
+        "field": ["2gis"],
+        "count": 0
+    },
+  
+    "15": {
+        "column": "direct",
+        "field": ["direct"],
+        "count": 0
+    },
+    "16": {
+        "column": "Google my business + Google maps",
+        "field": ["\u0413\u0443\u0433\u043b \u043c\u043e\u0439 \u0431\u0438\u0437\u043d\u0435\u0441 + \u0413\u0443\u0433\u043b \u043a\u0430\u0440\u0442\u044b"],
+        "count": 0
+    },
+    "17": {
+        "column": "Yandex directory + Yandex maps",
+        "field": ["\u042f\u043d\u0434\u0435\u043a\u0441 \u0441\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a + \u042f\u043d\u0434\u0435\u043a\u0441 \u043a\u0430\u0440\u0442\u044b"],
+        "count": 0
+    },
+    "unrecognized": {
+        "column": "unrecognized",
+        "count": 0
+    }
+}

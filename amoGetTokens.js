@@ -1,18 +1,14 @@
 import https from 'https';
 import fs from 'fs';  
- const getAccessToken = ()=>{
-    console.log('kek')
-    let rawdata = fs.readFileSync('./utils/amo_token.json');
-    const tokens = JSON.parse(rawdata);
-    console.log(tokens)
+ const getToken = ()=>{
     const data = JSON.stringify({
-        'client_id' : process.env.AMO_CLIENT_ID,
-        'client_secret' : process.env.AMO_CLIENT_SECRET,
-        'grant_type' : 'refresh_token',
-        'refresh_token' : tokens['refresh_token'],
-        'redirect_uri' : process.env.AMO_REDIRECT_URI
+        'client_id' : `${process.env.AMO_CLIENT_ID}`,
+        'client_secret' : `${process.env.AMO_CLIENT_SECRET}`,
+        'grant_type' : `${process.env.GRANT_TYPE}`,
+        'code' : `${process.env.AMO_AUTH_CODE}`,
+        'redirect_uri' : `${process.env.AMO_REDIRECT_URI}`
     })
-       const options = {
+    const options = {
         hostname: 'marketingmcpr.amocrm.ru',
         port: 443,
         path: '/oauth2/access_token',
@@ -27,18 +23,13 @@ import fs from 'fs';
         console.log(`statusCode: ${res.statusCode}`)
     
         res.on('data', d => {
-           //console.log(d.toString())
             process.stdout.write(d)
-            console.log("rkklfvmlm")
-            console.log(d.toString())
             if(res.statusCode==200){
 
                 fs.writeFileSync('./utils/amo_token.json', d.toString());
             }
             
-              });
-            
-        // })
+        })
     })
     
     req.on('error', error => {
@@ -47,5 +38,5 @@ import fs from 'fs';
     req.write(data)
     req.end()
 }
-export  default getAccessToken
+export  default getToken
 
