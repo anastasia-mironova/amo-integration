@@ -1,4 +1,5 @@
 import addUniqueCampaigns from "./addUniqueCampaign.js";
+import webhookHandler from "./webhookHandler.js";
 import { getGoogleCampaign } from "./google.js";
 import express from "express";
 import https from "https";
@@ -7,6 +8,7 @@ import fs from "fs";
 import path from "path";
 import multer from "multer";
 import csv from "csv-parser";
+import pg  from 'pg';
 
 dotenv.config();
 
@@ -57,7 +59,41 @@ app.post("/facebook", function (req, res) {
       });
   }
 });
+app.post("/webhook", webhookHandler);
+//getGoogleCampaign()
 //app.get('/amo/auth', getToken);
+
+
+
+
+
+const AddColumn = async (column) => {
+  const client =   new pg.Client({
+    user: 'postgres',
+    database: 'mcpr',
+    password: 'mcpr',
+    port: 5432,
+});
+	const query = `ALTER TABLE "test"
+                  ADD COLUMN IF NOT EXISTS  "${column}" INT;`;
+    try {
+        await client.connect();    // gets connection
+        await client.query(query);
+    } catch (error) {
+        console.error(error.stack);
+    } finally {
+        await client.end(); 
+              // closes connection
+    }
+};
+
+let rawdata = fs.readFileSync("./campaigns.json");
+    let campaigns = JSON.parse(rawdata);
+    campaigns.forEach(obj=>{
+      AddColumn(obj)
+    })
+
+
 app.get("/", (req, res) => res.send("<h1>Hello World!</h1>"));
 //getToken()
 //getAccessToken();
@@ -65,8 +101,6 @@ const options = {
   key: fs.readFileSync("./security/server.key", "utf8"),
   cert: fs.readFileSync("./security/server.cert", "utf8"),
 };
-// console.log("KEY: ", options.key)
-// console.log("CERT: ", options.cert)
 const secureServer = https.createServer(options, app).listen(port, () => {
   console.log(`Example app listening at https://localhost:${port}`);
 });

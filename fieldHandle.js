@@ -1,4 +1,5 @@
 import { readFileSync } from "fs";
+import fs from "fs";
 
 const countSource = (
   data = ["le", "v", "email", "4", "yanfdddex", "nmb", "klj", "jhj"]
@@ -12,7 +13,7 @@ const countSource = (
       continue;
     } else {
       res1 = data.some((el) => {
-        console.log(fields[obj]["field"][0])
+        console.log(fields[obj]["field"][0]);
         return el.includes(fields[obj]["field"][0]);
       });
       if (fields[obj]["field"][1] && res1) {
@@ -33,12 +34,10 @@ const countSource = (
       fields[obj]["field"];
       console.log("res1", res1);
       console.log("res2", res2);
-      
-      
     }
   }
 
-  if ( !res1 && typeof res2 == "undefined") {
+  if (!res1 && typeof res2 == "undefined") {
     fields["unrecognized"]["count"] += 1;
   }
   console.log(fields);
@@ -50,4 +49,32 @@ const countSource = (
   }
   return sourceColumns;
 };
-console.log(countSource());
+
+const checkCampaign = (data = ['vk_str', 'jjjjjj', "jjjjjjjjbbn"])=>{
+  let campaigns = []
+    try {
+      let campaignName;
+        let rawdata = fs.readFileSync('./campaigns.json');
+        campaigns = JSON.parse(rawdata);
+      data.forEach(field=>{
+       
+        campaigns.forEach(camp =>{
+          //console.log(camp)
+          if(field.includes(camp)){
+            console.log(camp)
+           campaignName =  camp;
+           
+           
+          }
+        })
+      })
+      return campaignName
+    } catch (e){
+      console.log(e) 
+    }
+    
+  
+ return ""
+}
+console.log("campaign   ",checkCampaign())
+
