@@ -8,7 +8,7 @@ import fs from "fs";
 import path from "path";
 import multer from "multer";
 import csv from "csv-parser";
-import pg  from 'pg';
+import pg from "pg";
 
 dotenv.config();
 
@@ -63,36 +63,31 @@ app.post("/webhook", webhookHandler);
 //getGoogleCampaign()
 //app.get('/amo/auth', getToken);
 
-
-
-
-
 const AddColumn = async (column) => {
-  const client =   new pg.Client({
-    user: 'postgres',
-    database: 'mcpr',
-    password: 'mcpr',
+  const client = new pg.Client({
+    user: "postgres",
+    database: "mcpr",
+    password: "mcpr",
     port: 5432,
-});
-	const query = `ALTER TABLE "test"
+  });
+  const query = `ALTER TABLE "test"
                   ADD COLUMN IF NOT EXISTS  "${column}" INT;`;
-    try {
-        await client.connect();    // gets connection
-        await client.query(query);
-    } catch (error) {
-        console.error(error.stack);
-    } finally {
-        await client.end(); 
-              // closes connection
-    }
+  try {
+    await client.connect(); // gets connection
+    await client.query(query);
+  } catch (error) {
+    console.error(error.stack);
+  } finally {
+    await client.end();
+    // closes connection
+  }
 };
 
 let rawdata = fs.readFileSync("./campaigns.json");
-    let campaigns = JSON.parse(rawdata);
-    campaigns.forEach(obj=>{
-      AddColumn(obj)
-    })
-
+let campaigns = JSON.parse(rawdata);
+campaigns.forEach((obj) => {
+  AddColumn(obj);
+});
 
 app.get("/", (req, res) => res.send("<h1>Hello World!</h1>"));
 //getToken()
