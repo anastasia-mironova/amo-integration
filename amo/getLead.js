@@ -18,13 +18,19 @@ const getLead = (leadId) => {
     console.log(`statusCode: ${res.statusCode}`);
 
     res.on("data", (d) => {
-      process.stdout.write(d)
+     // process.stdout.write(d)
       if (res.statusCode == 200) {
         const customFields = JSON.parse(d)["custom_fields_values"];
+        console.log(customFields)
         const values = [];
+        if(!customFields) return 
         customFields.forEach((value) => {
-          values.push(value["values"][0]["value"]);
+          if(value["values"][0]["value"]){
+            values.push(value["values"][0]["value"]);
+          }
+          
         });
+        //console.log(values)
         return values;
       }
     });
@@ -39,4 +45,5 @@ const getLead = (leadId) => {
   req.end();
 };
 export  default getLead
+
 

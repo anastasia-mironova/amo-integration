@@ -1,5 +1,5 @@
 import addUniqueCampaigns from "./addUniqueCampaign.js";
-import webhookHandler from "./webhookHandler.js";
+import webhookHandler from "./amo/webhookHandler.js";
 import { getGoogleCampaign } from "./google.js";
 import express from "express";
 import https from "https";
@@ -26,7 +26,7 @@ const storageConfig = multer.diskStorage({
 });
 app.use(multer({ storage: storageConfig }).single("filedata"));
 import { vKAuthFirstStep, vkLoginComplete } from "./vk.js"; // импортируем наш метод
-import getToken from "./amo/amoGetTokens.js";
+import getToken from "./amo/getAmoTokens.js";
 import getAccessToken from "./amo/getAccessAmoToken.js";
 
 app.get("/login/vk", (req, res) => vKAuthFirstStep(res));
@@ -48,14 +48,14 @@ app.post("/facebook", function (req, res) {
       .pipe(csv())
       .on("data", (data) => results.push(data))
       .on("end", () => {
-        let rawdata = fs.readFileSync("./campaigns.json");
+        let rawdata = fs.readFileSync("./utils/campaigns.json");
         const campaigns = JSON.parse(rawdata);
 
         // console.log(results);
         results.forEach((el) => {
           addUniqueCampaigns(el["Название группы объявлений"]);
         });
-        fs.writeFileSync("./campaigns.json", JSON.stringify(campaigns));
+        fs.writeFileSync("./utils/campaigns.json", JSON.stringify(campaigns));
       });
   }
 });
@@ -63,31 +63,31 @@ app.post("/webhook", webhookHandler);
 //getGoogleCampaign()
 //app.get('/amo/auth', getToken);
 
-const AddColumn = async (column) => {
-  const client = new pg.Client({
-    user: "postgres",
-    database: "mcpr",
-    password: "mcpr",
-    port: 5432,
-  });
-  const query = `ALTER TABLE "test"
-                  ADD COLUMN IF NOT EXISTS  "${column}" INT;`;
-  try {
-    await client.connect(); // gets connection
-    await client.query(query);
-  } catch (error) {
-    console.error(error.stack);
-  } finally {
-    await client.end();
-    // closes connection
-  }
-};
+// const AddColumn = async (column) => {
+//   const client = new pg.Client({
+//     user: "postgres",
+//     database: "mcpr",
+//     password: "mcpr",
+//     port: 5432,
+//   });
+//   const query = `ALTER TABLE "test"
+//                   ADD COLUMN IF NOT EXISTS  "${column}" INT;`;
+//   try {
+//     await client.connect(); // gets connection
+//     await client.query(query);
+//   } catch (error) {
+//     console.error(error.stack);
+//   } finally {
+//     await client.end();
+//     // closes connection
+//   }
+// };
 
-let rawdata = fs.readFileSync("./campaigns.json");
-let campaigns = JSON.parse(rawdata);
-campaigns.forEach((obj) => {
-  AddColumn(obj);
-});
+// let rawdata = fs.readFileSync("./campaigns.json");
+// let campaigns = JSON.parse(rawdata);
+// campaigns.forEach((obj) => {
+//   AddColumn(obj);
+// });
 
 app.get("/", (req, res) => res.send("<h1>Hello World!</h1>"));
 //getToken()

@@ -1,20 +1,20 @@
 import { readFileSync } from "fs";
 import fs from "fs";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash";
 
-const checkSource = (
+export const checkSource = (
   data = ["le", "v", "email", "4", "yanfdddex", "nmb", "klj", "jhj"]
 ) => {
   if (typeof data == "undefined") return null;
   let res1 = undefined,
     res2 = undefined;
-  let fields = JSON.parse(readFileSync("source.json", "utf-8"));
+  let fields = JSON.parse(readFileSync("./utils/source.json", "utf-8"));
   for (let obj in fields) {
     if (!fields[obj]["field"]) {
       continue;
     } else {
       res1 = data.some((el) => {
-        console.log(fields[obj]["field"][0]);
+        //console.log(fields[obj]["field"][0]);
         return el.includes(fields[obj]["field"][0]);
       });
       if (fields[obj]["field"][1] && res1) {
@@ -33,15 +33,15 @@ const checkSource = (
       } else console.log("         ");
 
       fields[obj]["field"];
-      console.log("res1", res1);
-      console.log("res2", res2);
+      //console.log("res1", res1);
+      //console.log("res2", res2);
     }
   }
 
-  if (!res1 && typeof res2 == "undefined" || isEmpty(data)) {
+  if ((!res1 && typeof res2 == "undefined") || isEmpty(data)) {
     fields["unrecognized"]["count"] += 1;
   }
-  console.log(fields);
+  //console.log(fields);
   let sourceColumns = [];
   for (let el in fields) {
     if (fields[el]["count"] > 0) {
@@ -51,18 +51,18 @@ const checkSource = (
   return sourceColumns;
 };
 
-const checkCampaign = (data = ["vk_str", "jjjjjj", "jjjjjjjjbbn"]) => {
+export const checkCampaign = (data = ["vk_str", "jjjjjj", "jjjjjjjjbbn"]) => {
   let campaigns = [];
-  if (isEmpty(data)) return "Посетители без рекламной кампании"
+  if (isEmpty(data)) return "Посетители без рекламной кампании";
   try {
     let campaignName;
-    let rawdata = fs.readFileSync("./campaigns.json");
+    let rawdata = fs.readFileSync("./utils/campaigns.json");
     campaigns = JSON.parse(rawdata);
     data.forEach((field) => {
       campaigns.forEach((camp) => {
         //console.log(camp)
         if (field.includes(camp)) {
-          console.log(camp);
+          //console.log(camp);
           campaignName = camp;
         }
       });
@@ -74,4 +74,3 @@ const checkCampaign = (data = ["vk_str", "jjjjjj", "jjjjjjjjbbn"]) => {
 
   return "Посетители без рекламной кампании";
 };
-console.log("campaign   ", checkCampaign());
