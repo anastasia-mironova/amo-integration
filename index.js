@@ -26,8 +26,8 @@ const storageConfig = multer.diskStorage({
 });
 app.use(multer({ storage: storageConfig }).single("filedata"));
 import { vKAuthFirstStep, vkLoginComplete } from "./vk.js"; // импортируем наш метод
-import getToken from "./amoGetTokens.js";
-import getAccessToken from "./getAccessAmoToken.js";
+import getToken from "./amo/amoGetTokens.js";
+import getAccessToken from "./amo/getAccessAmoToken.js";
 
 app.get("/login/vk", (req, res) => vKAuthFirstStep(res));
 app.get("/login/vk/complete", vkLoginComplete);

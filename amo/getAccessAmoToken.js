@@ -10,7 +10,7 @@ import fs from 'fs';
         'client_secret' : process.env.AMO_CLIENT_SECRET,
         'grant_type' : 'refresh_token',
         'refresh_token' : tokens['refresh_token'],
-        'redirect_uri' : process.env.AMO_REDIRECT_URI
+        'redirect_uri' : "https://4cb1c4b23826.ngrok.io/"
     })
        const options = {
         hostname: 'marketingmcpr.amocrm.ru',

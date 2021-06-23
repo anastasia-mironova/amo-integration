@@ -53,6 +53,7 @@ const checkSource = (
 
 const checkCampaign = (data = ["vk_str", "jjjjjj", "jjjjjjjjbbn"]) => {
   let campaigns = [];
+  if (isEmpty(data)) return "Посетители без рекламной кампании"
   try {
     let campaignName;
     let rawdata = fs.readFileSync("./campaigns.json");
@@ -71,6 +72,6 @@ const checkCampaign = (data = ["vk_str", "jjjjjj", "jjjjjjjjbbn"]) => {
     console.log(e);
   }
 
-  return "";
+  return "Посетители без рекламной кампании";
 };
 console.log("campaign   ", checkCampaign());
