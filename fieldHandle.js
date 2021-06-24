@@ -3,7 +3,7 @@ import fs from "fs";
 import isEmpty from "lodash";
 
 export const checkSource = (
-  data = ["le", "v", "email", "4", "yanfdddex", "nmb", "klj", "jhj"]
+  data 
 ) => {
   if (typeof data == "undefined") return null;
   let res1 = undefined,
@@ -38,10 +38,10 @@ export const checkSource = (
     }
   }
 
-  if ((!res1 && typeof res2 == "undefined") || isEmpty(data)) {
+  if ((!res1 && typeof res2 == "undefined") ) {
     fields["unrecognized"]["count"] += 1;
   }
-  //console.log(fields);
+  console.log(fields);
   let sourceColumns = [];
   for (let el in fields) {
     if (fields[el]["count"] > 0) {
@@ -51,8 +51,9 @@ export const checkSource = (
   return sourceColumns;
 };
 
-export const checkCampaign = (data = ["vk_str", "jjjjjj", "jjjjjjjjbbn"]) => {
+export const checkCampaign = (data) => {
   let campaigns = [];
+  console.log("data", data)
   if (isEmpty(data)) return "Посетители без рекламной кампании";
   try {
     let campaignName;

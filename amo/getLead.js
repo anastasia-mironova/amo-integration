@@ -21,7 +21,7 @@ const getLead = (leadId) => {
      // process.stdout.write(d)
       if (res.statusCode == 200) {
         const customFields = JSON.parse(d)["custom_fields_values"];
-        console.log(customFields)
+       // console.log(customFields)
         const values = [];
         if(!customFields) return 
         customFields.forEach((value) => {
@@ -30,7 +30,7 @@ const getLead = (leadId) => {
           }
           
         });
-        //console.log(values)
+        console.log(values)
         return values;
       }
     });

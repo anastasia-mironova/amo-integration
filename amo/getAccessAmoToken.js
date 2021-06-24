@@ -4,10 +4,10 @@ import fs from 'fs';
     console.log('kek')
     let rawdata = fs.readFileSync('./utils/amo_token.json');
     const tokens = JSON.parse(rawdata);
-    console.log(tokens['refresh_token'])
+    //console.log(tokens['refresh_token'])
     const data = JSON.stringify({
-        'client_id' : process.env.AMO_CLIENT_ID,
-        'client_secret' : process.env.AMO_CLIENT_SECRET,
+        'client_id' : "8a62580d-7596-4702-82fb-ecd236e69111",
+        'client_secret' : "unQXPY90vCDGFy9RZWCJ0OpXytx6BzHdvYguKmt1isyfPWlbKeHsCLUqDyMFN8h7",
         'grant_type' : 'refresh_token',
         'refresh_token' : tokens['refresh_token'],
         'redirect_uri' : "https://4cb1c4b23826.ngrok.io/"
@@ -44,5 +44,5 @@ import fs from 'fs';
     req.write(data)
     req.end()
 }
-export  default getAccessToken
+getAccessToken()
 

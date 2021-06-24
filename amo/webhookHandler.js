@@ -16,7 +16,7 @@ export default function webhookHandler(req, res) {
       leadId = post["leads[add][0][id]"];
       if (leadId) {
         const customValue = getLead(leadId);
-        console.log(customValue);
+        console.log("custom values",customValue);
         console.log(checkSource(customValue));
         console.log(checkCampaign(customValue));
       }

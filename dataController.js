@@ -27,7 +27,7 @@ class DataController {
 
   AddRow = async (table) => {
     const client = new pg.Client(this.connData);
-    const query = `INSERT INTO "${table}" DEFAULT VALUEs;`;
+    const query = `INSERT INTO "${table}" DEFAULT VALUES;`;
     try {
       await client.connect(); // gets connection
       await client.query(query);
@@ -61,7 +61,7 @@ class DataController {
       // closes connection
     }
   };
-   getValue = async (column, table) => {
+  getValue = async (column, table) => {
     const client = new pg.Client({
       user: "postgres",
       database: "mcpr",
@@ -88,7 +88,7 @@ class DataController {
     const client = new pg.Client(this.connData);
     const query = `INSERT INTO "${table}" DEFAULT VALUEs;
     UPDATE "${table}"
-    SET ${column} = ${getValue(column, table)+val}
+    SET ${column} = ${getValue(column, table) + val}
     WHERE "date" = current_date;`;
     try {
       await client.connect(); // gets connection
@@ -103,4 +103,28 @@ class DataController {
 }
 
 const dc = new DataController();
-await dc.getValue("kek", "test");
+
+let kek = [
+  "yandex/cpa",
+  "yandex/organic",
+  "google/cpa",
+  "google/organic",
+  "instagram/cpa",
+  "instagram/social",
+  "facebook/social",
+  "facebook/cpa",
+  "odnoklassniki/cpa",
+  "odnoklassniki/social",
+  "vkontakte/cpa",
+  "vkontakte/social",
+  "email",
+  "doublegis",
+  "direct",
+  "Google my business + Google maps",
+  "Yandex directory + Yandex maps",
+];
+
+kek.forEach(el=>{
+  dc.AddColumn(el,"IncomeSourceAmo")
+})
+
