@@ -27,7 +27,7 @@ class DataController {
 
   AddRow = async (table) => {
     const client = new pg.Client(this.connData);
-    const query = `INSERT INTO "${table}" DEFAULT VALUES;`;
+    const query = `INSERT INTO public."${table}" DEFAULT VALUES;`;
     try {
       await client.connect(); // gets connection
       await client.query(query);
@@ -38,6 +38,29 @@ class DataController {
       // closes connection
     }
   };
+  // getValue = async (column, table) => {
+  //   const client = new pg.Client({
+  //     user: "postgres",
+  //     database: "mcpr",
+  //     password: "mcpr",
+  //     port: 5432,
+  //   });
+  //   const query = `select "${column}" from "${table}" where "date" = current_date`;
+  //   try {
+  //     await client.connect(); // gets connection
+  //     await client
+  //       .query(query)
+  //       .then((res) => {
+  //         return res["rows"][0][`${column}`];
+  //       })
+  //       .catch((e) => console.error(e.stack));
+  //   } catch (error) {
+  //     console.error(error.stack);
+  //   } finally {
+  //     await client.end();
+  //     // closes connection
+  //   }
+  // };
   getValue = async (column, table) => {
     const client = new pg.Client({
       user: "postgres",
@@ -48,52 +71,32 @@ class DataController {
     const query = `select "${column}" from "${table}" where "date" = current_date`;
     try {
       await client.connect(); // gets connection
-      await client
+     let val = await client
         .query(query)
-        .then((res) => {
-          return res["rows"][0][`${column}`];
-        })
+        .then((res) =>  res["rows"][0][`${column}`]
+        )
         .catch((e) => console.error(e.stack));
+       return val
     } catch (error) {
       console.error(error.stack);
     } finally {
       await client.end();
       // closes connection
     }
-  };
-  getValue = async (column, table) => {
-    const client = new pg.Client({
-      user: "postgres",
-      database: "mcpr",
-      password: "mcpr",
-      port: 5432,
-    });
-    const query = `select "${column}" from "${table}" where "date" = current_date`;
-    try {
-      await client.connect(); // gets connection
-      await client
-        .query(query)
-        .then((res) => {
-          return res["rows"][0][`${column}`];
-        })
-        .catch((e) => console.error(e.stack));
-    } catch (error) {
-      console.error(error.stack);
-    } finally {
-      await client.end();
-      // closes connection
-    }
+    
   };
   UpdateValue = async (column, table, val) => {
     const client = new pg.Client(this.connData);
-    const query = `INSERT INTO "${table}" DEFAULT VALUEs;
-    UPDATE "${table}"
-    SET ${column} = ${getValue(column, table) + val}
+    
+    const query = `UPDATE "${table}"
+    SET "${column}" = ${(await this.getValue(column, table)) + val}
     WHERE "date" = current_date;`;
+   
     try {
       await client.connect(); // gets connection
       await client.query(query);
     } catch (error) {
+      console.log('test')
       console.error(error.stack);
     } finally {
       await client.end();
@@ -103,4 +106,5 @@ class DataController {
 }
 const dc = new DataController();
 export default dc
+//dc.AddRow('LeadsSourceAmo')
 

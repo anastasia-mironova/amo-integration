@@ -22,8 +22,9 @@ export default  function webhookHandler(req, res) {
            const source = checkSource(res);
            const campaign=checkCampaign(res);
            source.forEach((element)=>{
-              dc.AddRow('')
+              dc.UpdateValue(element, 'LeadsSourceAmo', 1)
            })
+           dc.UpdateValue(campaign, "LeadsCampaignAmo", 1)
         });
         
       
