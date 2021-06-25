@@ -101,30 +101,6 @@ class DataController {
     }
   };
 }
-
 const dc = new DataController();
-
-let kek = [
-  "yandex/cpa",
-  "yandex/organic",
-  "google/cpa",
-  "google/organic",
-  "instagram/cpa",
-  "instagram/social",
-  "facebook/social",
-  "facebook/cpa",
-  "odnoklassniki/cpa",
-  "odnoklassniki/social",
-  "vkontakte/cpa",
-  "vkontakte/social",
-  "email",
-  "doublegis",
-  "direct",
-  "Google my business + Google maps",
-  "Yandex directory + Yandex maps",
-];
-
-kek.forEach(el=>{
-  dc.AddColumn(el,"IncomeSourceAmo")
-})
+export default dc
 

@@ -10,7 +10,7 @@ import fs from 'fs';
         'client_secret' : "unQXPY90vCDGFy9RZWCJ0OpXytx6BzHdvYguKmt1isyfPWlbKeHsCLUqDyMFN8h7",
         'grant_type' : 'refresh_token',
         'refresh_token' : tokens['refresh_token'],
-        'redirect_uri' : "https://4cb1c4b23826.ngrok.io/"
+        'redirect_uri' : "https://90ce417474ce.ngrok.io/"
     })
        const options = {
         hostname: 'marketingmcpr.amocrm.ru',
@@ -24,6 +24,7 @@ import fs from 'fs';
         }
     }
     const req = https.request(options, res => {
+        
         console.log(`statusCode: ${res.statusCode}`)
     
         res.on('data', d => {

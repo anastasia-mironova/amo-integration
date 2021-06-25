@@ -2,7 +2,8 @@ import fs from "fs";
 import getLead from "./getLead.js";
 import qs from "querystring";
 import { checkCampaign, checkSource } from "../fieldHandle.js";
-export default function webhookHandler(req, res) {
+import dc from "../dataController.js"
+export default  function webhookHandler(req, res) {
   if (req.method == "POST") {
     var body = "";
     let leadId;
@@ -15,10 +16,18 @@ export default function webhookHandler(req, res) {
       var post = qs.parse(body);
       leadId = post["leads[add][0][id]"];
       if (leadId) {
-        const customValue = getLead(leadId);
-        console.log("custom values",customValue);
-        console.log(checkSource(customValue));
-        console.log(checkCampaign(customValue));
+        console.log("lead id", leadId)
+        const customValue =   getLead(leadId).then(res=>{
+          console.log(res)
+           const source = checkSource(res);
+           const campaign=checkCampaign(res);
+           source.forEach((element)=>{
+              dc.AddRow('')
+           })
+        });
+        
+      
+       // 
       }
     });
   }

@@ -2,12 +2,10 @@ import { readFileSync } from "fs";
 import fs from "fs";
 import isEmpty from "lodash";
 
-export const checkSource = (
-  data 
-) => {
+export const checkSource = (data) => {
   if (typeof data == "undefined") return null;
   let res1 = undefined,
-    res2 = undefined;
+      res2 = undefined;
   let fields = JSON.parse(readFileSync("./utils/source.json", "utf-8"));
   for (let obj in fields) {
     if (!fields[obj]["field"]) {
@@ -38,10 +36,10 @@ export const checkSource = (
     }
   }
 
-  if ((!res1 && typeof res2 == "undefined") ) {
+  if ((!res1 && typeof res2 == "undefined") || !isEmpty(data)) {
     fields["unrecognized"]["count"] += 1;
   }
-  console.log(fields);
+  //console.log(fields);
   let sourceColumns = [];
   for (let el in fields) {
     if (fields[el]["count"] > 0) {
@@ -53,8 +51,8 @@ export const checkSource = (
 
 export const checkCampaign = (data) => {
   let campaigns = [];
-  console.log("data", data)
-  if (isEmpty(data)) return "Посетители без рекламной кампании";
+  //console.log("data", data)
+  if (!isEmpty(data)) return "Посетители без рекламной кампании";
   try {
     let campaignName;
     let rawdata = fs.readFileSync("./utils/campaigns.json");
