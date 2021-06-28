@@ -1,6 +1,7 @@
 import addUniqueCampaigns from "./addUniqueCampaign.js";
 import webhookHandler from "./amo/webhookHandler.js";
 import { getGoogleCampaign } from "./google.js";
+import { getYandexCampaigns } from "./yandex.js";
 import express from "express";
 import https from "https";
 import dotenv from "dotenv";
@@ -9,7 +10,7 @@ import path from "path";
 import multer from "multer";
 import csv from "csv-parser";
 import pg from "pg";
-
+import cron from "node-cron"
 dotenv.config();
 
 const app = express();
@@ -59,39 +60,17 @@ app.post("/facebook", function (req, res) {
       });
   }
 });
+cron.schedule('0 8 11 * * *',()=>{
+  // getAccessToken();
+  getGoogleCampaign()
+  getYandexCampaigns();
+  
+  
+})
 app.post("/webhook", webhookHandler);
-//getGoogleCampaign()
-//app.get('/amo/auth', getToken);
-
-// const AddColumn = async (column) => {
-//   const client = new pg.Client({
-//     user: "postgres",
-//     database: "mcpr",
-//     password: "mcpr",
-//     port: 5432,
-//   });
-//   const query = `ALTER TABLE "test"
-//                   ADD COLUMN IF NOT EXISTS  "${column}" INT;`;
-//   try {
-//     await client.connect(); // gets connection
-//     await client.query(query);
-//   } catch (error) {
-//     console.error(error.stack);
-//   } finally {
-//     await client.end();
-//     // closes connection
-//   }
-// };
-
-// let rawdata = fs.readFileSync("./campaigns.json");
-// let campaigns = JSON.parse(rawdata);
-// campaigns.forEach((obj) => {
-//   AddColumn(obj);
-// });
-
 app.get("/", (req, res) => res.send("<h1>Hello World!</h1>"));
 //getToken()
-//getAccessToken();
+
 const options = {
   key: fs.readFileSync("./security/server.key", "utf8"),
   cert: fs.readFileSync("./security/server.cert", "utf8"),
