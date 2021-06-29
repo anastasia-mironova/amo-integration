@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html {
+        height: 100%;
+        align-items: center;
+        font-family: "Roboto Mono", monospace;
+      }
+
+      body {
+        background: #000000;
+        color: #ffffff;
+      }
+
+      div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        font-family: "Roboto Mono", monospace;
+      }
+      input[type="submit"] {
+        width: 120px;
+        height: 40px;
+        border-radius: 6px;
+        background-color: #ffffff;
+        margin-top: 30px;
+        font-family: "Roboto Mono", monospace;
+        font-weight: 500;
+        font-size: 17px;
+      }
+      input[type="submit"]:hover {
+        background-color: blue;
+        color: ghostwhite;
+      }
+
+      .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label {
+        margin-top: 30px;
+      }
+      .radio {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+      }
+      .radio > div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+      }
+      .radio label {
+        margin: 0;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Загрузка статистики по источникам</h1>
+      <form
+        method="POST"
+        action="https://localhost:3000/oldstat"
+        enctype="multipart/form-data"
+        class="input-wrapper"
+      >
+        <div class="radio">
+          <div>
+            <input type="radio" id="leads" name="type" value="LeadsSourceAmo" checked />
+            <label for="leads">Количество заявок по источникам</label>
+          </div>
+          <div>
+            <input type="radio" id="sales" name="type" value="SalesSourceAmo" />
+            <label for="sales">Количество продаж по источникам</label>
+          </div>
+
+          <div>
+            <input type="radio" id="income" name="type" value="IncomeSourceAmo" />
+            <label for="income">Сумма продаж по источникам</label>
+          </div>
+        </div>
+
+        <input type="file" id="file-uploader" accept=".csv" />
+        <input type="submit" />
+      </form>
+
+      <p>Загрузи файл формата .csv</p>
+    </div>
+    <script>
+      const formElem = document.querySelector(".input-wrapper");
+      formElem.onsubmit = async (e) => {
+        let input = document.querySelector('input[type="file"]');
+        let file = new FormData();
+        file.append("filedata", input.files[0]);
+        let sales = document.getElementById("sales");
+        let leads = document.getElementById("leads");
+        let income = document.getElementById("income");
+        if(sales.checked) file.append("column", sales.value)
+        if(leads.checked) file.append("column", leads.value)
+        if(income.checked) file.append("column", income.value)
+        e.preventDefault();
+        let response = await fetch("https://localhost:3000/oldstat", {
+          method: "POST",
+          body: file,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            Accept:
+              "application/vnd.ms-excel, application/json, application/xml, text/plain, text/html, *.*",
+          },
+        });
+
+        let result = await response.json();
+        alert(result.message);
+      };
+    </script>
+  </body>
+</html>

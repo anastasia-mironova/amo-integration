@@ -28,13 +28,14 @@ const storageConfig = multer.diskStorage({
 app.use(multer({ storage: storageConfig }).single("filedata"));
 import { vKAuthFirstStep, vkLoginComplete } from "./vk.js"; // импортируем наш метод
 import getToken from "./amo/getAmoTokens.js";
+import dc from "./dataController.js";
 //import getAccessToken from "./amo/getAccessAmoToken.js";
 
 app.get("/login/vk", (req, res) => vKAuthFirstStep(res));
 app.get("/login/vk/complete", vkLoginComplete);
 
 app.get("/facebook", function (req, res) {
-  res.sendFile(path.resolve(__dirname, "index.html"));
+  res.sendFile(path.resolve(__dirname, "html/facebookUpload.html"));
 });
 app.post("/facebook", function (req, res) {
   let filedata = req.file;
@@ -60,15 +61,46 @@ app.post("/facebook", function (req, res) {
       });
   }
 });
+app.get('/oldstat',(req,res)=>{
+  res.sendFile(path.resolve(__dirname, "html/oldStat.html"));
+})
+app.post('/oldstat',(req,res)=>{
+  console.log(req.body['column'])
+  let filedata = req.file;
+  let target_path;
+  if (!filedata) res.send({ message: "Ошибка при загрузке файла" });
+  else {
+    res.send({ message: "Файл загружен" });
+    target_path = "uploads/" + req.file.originalname;
+
+    const results = [];
+    fs.createReadStream(target_path)
+      .pipe(csv())
+      .on("data", (data) => results.push(data))
+      .on("end", () => {
+        let rawdata = fs.readFileSync("./utils/campaigns.json");
+        const campaigns = JSON.parse(rawdata);
+        
+       // console.log(results);
+      //   results.forEach((el) => {
+      //     addUniqueCampaigns(el["Название группы объявлений"]);
+      //   });
+      //   fs.writeFileSync("./utils/campaigns.json", JSON.stringify(campaigns));
+      // 
+    });
+  }
+})
+app.get('/amo/auth',(req,res)=>{
+  res.send('amo')
+})
 cron.schedule('0 8 11 * * *',()=>{
   // getAccessToken();
   getGoogleCampaign()
   getYandexCampaigns();
-  
-  
+
 })
 app.post("/webhook", webhookHandler);
-app.get("/", (req, res) => res.send("<h1>Hello World!</h1>"));
+app.get("/", (req, res) => res.sendFile(path.resolve(__dirname, 'html/index.html')));
 //getToken()
 
 const options = {

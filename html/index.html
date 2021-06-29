@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indexs</title>
+    <style>
+      html {
+        height: 100%;
+        align-items: center;
+        font-family: "Roboto Mono", monospace;
+      }
+
+      body {
+        background: #000000;
+        color: #ffffff;
+      }
+
+      div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        font-family: "Roboto Mono", monospace;
+      }
+      a {
+          font-size: 20px;
+          color: white;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          background-color: blue;
+          width: 70%;
+          margin: 10px 0;
+          padding: 20px 10px;
+          border-radius: 5px;
+      }
+      a:hover{
+        background-color: white;
+        color: blue;
+      }
+      .token {
+          background-color: green;
+      }
+      .token:hover{
+        background-color: white;
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Основные действия в приложении</h1>
+      <a href="https://localhost:3000/oldstat">Загрузить старую статистику по источникам в формате .csv</a>
+      <a href="https://localhost:3000/facebook">Получить кампании из фейсбука .csv</a>
+      <a href="https://localhost:3000/login/vk">Получить кампании из вк</a>
+      <a href="https://localhost:3000/add/source">Добавить источник</a>
+      <a  class="token" href="https://localhost:3000/amo/auth">Новая авторизация для amo, если отвалился токен</a>
+    </div>
+  </body>
+</html>
