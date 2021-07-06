@@ -21,7 +21,7 @@ async function doRequest(leadId) {
 
       res
         .on("data", (d) => {
-          //process.stdout.write(d)
+          process.stdout.write(d)
           if (res.statusCode == 200) {
             // const customFields = JSON.parse(d)["custom_fields_values"];
             const customFields = JSON.parse(d)["custom_fields_values"];
@@ -54,4 +54,5 @@ const getLead = async (leadId) => {
   return await doRequest(leadId);
 };
 
-export default getLead;
+//export default getLead;
+getLead(13842419)

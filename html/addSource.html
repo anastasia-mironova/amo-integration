@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Source</title>
+    <style>
+      html {
+        height: 100%;
+        align-items: center;
+        font-family: "Roboto Mono", monospace;
+      }
+
+      body {
+        background: #000000;
+        color: #ffffff;
+      }
+
+      div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        font-family: "Roboto Mono", monospace;
+      }
+      input[type="submit"] {
+        width: 120px;
+        height: 40px;
+        border-radius: 6px;
+        background-color: #ffffff;
+        margin-top: 30px;
+        font-family: "Roboto Mono", monospace;
+        font-weight: 500;
+        font-size: 17px;
+      }
+      input[type="submit"]:hover {
+        background-color: blue;
+        color: ghostwhite;
+      }
+
+      .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+      }
+      .input-wrapper .wrapper:first-of-type {
+        margin-bottom: 20px;
+      }
+      input[type="text"] {
+        width: 100%;
+        height: 30px;
+        margin-top: 10px;
+        border-radius: 5px;
+      }
+      input[type="text"]:invalid {
+        border: 3.5px solid rgb(255, 0, 149);
+      }
+      input[type="text"]:valid {
+        border: 3.5px solid rgb(12, 146, 0);
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Добавление источника</h1>
+      <form
+        method="POST"
+        action="https://localhost:3000/add/source"
+        enctype="multipart/form-data"
+        id="input-wrapper"
+      >
+        <div class="wrapper">
+          <label for="name">Название столбца</label>
+          <input required type="text" class="name" id="name" pattern="\S+" />
+        </div>
+        <div class="wrapper">
+          <label for="keywords">Варианты значений через запятую</label>
+          <input
+            required
+            type="text"
+            class="keywords"
+            id="keywords"
+            pattern="\S+"
+          />
+        </div>
+
+        <input type="submit" />
+      </form>
+    </div>
+    <script>
+      const formElem = document.getElementById("input-wrapper");
+
+      formElem.onsubmit = async (e) => {
+        e.preventDefault();
+        let name = document.getElementById("name");
+        let keywords = document.getElementById("keywords");
+        const val = {
+          name: name.value,
+          keywords: keywords.value,
+        };
+        console.log(val.toString());
+        let data = new FormData();
+        data.append("data", JSON.stringify(val));
+        let response = await fetch("https://localhost:3000/add/source", {
+          method: "POST",
+          body: data,
+        });
+        let result = await response.json();
+        alert(result.message);
+      };
+    </script>
+  </body>
+</html>

@@ -3,65 +3,77 @@ import fs from "fs";
 import isEmpty from "lodash";
 
 export const checkSource = (data) => {
-  if (typeof data == "undefined") return null;
   let res1 = undefined,
-      res2 = undefined;
+    res2 = undefined;
   let fields = JSON.parse(readFileSync("./utils/source.json", "utf-8"));
-  for (let obj in fields) {
-    if (!fields[obj]["field"]) {
-      continue;
+  const filterReply = [];
+  if (typeof data == "undefined") return ["Нераспознанный источник"];
+  let isUnrecognized;
+
+  fields.forEach((field, index) => {
+    if (!field["field"]) {
     } else {
-      res1 = data.some((el) => {
-        //console.log(fields[obj]["field"][0]);
-        return el.includes(fields[obj]["field"][0]);
+      res1 = data.findIndex((el, index) => {
+        return el.includes(field["field"][0]);
       });
-      if (fields[obj]["field"][1] && res1) {
-        res2 = data.some((el) => {
-          return el.includes(fields[obj]["field"][1]);
+
+      if (res1 > -1) {
+        data.splice(res1, 1);
+        res1 = true;
+      } else {
+        res1 = undefined;
+      }
+      if (field["field"][1] && res1) {
+        res2 = data.findIndex((el, index) => {
+          return el.includes(field["field"][1]);
         });
+
+        if (res2 > -1) {
+          data.splice(res2, 1);
+          res2 = true;
+        } else {
+          res2 = undefined;
+        }
       } else {
         res2 = undefined;
       }
       if (res1 && res2) {
-        fields[obj]["count"] += 1;
-        break;
+        field["count"] += 1;
       } else if (res1 && typeof res2 == "undefined") {
-        fields[obj]["count"] += 1;
-        break;
-      } else console.log("         ");
-
-      fields[obj]["field"];
-      //console.log("res1", res1);
-      //console.log("res2", res2);
+        field["count"] += 1;
+      }
     }
-  }
+    filterReply.push(res1, res2);
+  });
+  isUnrecognized = filterReply.filter((el) => {
+    return el;
+  });
 
-  if ((!res1 && typeof res2 == "undefined") || !isEmpty(data)) {
-    fields["unrecognized"]["count"] += 1;
+  if (isUnrecognized.length === 0) {
+    fields[fields.length - 1]["unrecognized"]["count"] += 1;
   }
-  //console.log(fields);
   let sourceColumns = [];
-  for (let el in fields) {
-    if (fields[el]["count"] > 0) {
-      sourceColumns.push(fields[el]["column"]);
+  fields.forEach((field) => {
+    if (field["count"] > 0) {
+      sourceColumns.push(field["column"]);
     }
+  });
+  if (fields[fields.length - 1]["unrecognized"]["count"] > 0) {
+    sourceColumns.push(fields[fields.length - 1]["unrecognized"]["column"]);
   }
   return sourceColumns;
 };
 
 export const checkCampaign = (data) => {
   let campaigns = [];
-  //console.log("data", data)
-  if (!isEmpty(data)) return "Посетители без рекламной кампании";
+  if (!isEmpty(data)) return "Нераспознанный источник";
   try {
     let campaignName;
     let rawdata = fs.readFileSync("./utils/campaigns.json");
     campaigns = JSON.parse(rawdata);
     data.forEach((field) => {
       campaigns.forEach((camp) => {
-        //console.log(camp)
         if (field.includes(camp)) {
-          //console.log(camp);
           campaignName = camp;
         }
       });
@@ -71,5 +83,5 @@ export const checkCampaign = (data) => {
     console.log(e);
   }
 
-  return "Посетители без рекламной кампании";
+  return "Нераспознанный источник";
 };

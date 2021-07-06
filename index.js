@@ -11,6 +11,8 @@ import multer from "multer";
 import csv from "csv-parser";
 import pg from "pg";
 import cron from "node-cron"
+import { getObj} from "./oldStatHelper.js";
+import {tables} from "./utils/tables.js"
 dotenv.config();
 
 const app = express();
@@ -52,8 +54,6 @@ app.post("/facebook", function (req, res) {
       .on("end", () => {
         let rawdata = fs.readFileSync("./utils/campaigns.json");
         const campaigns = JSON.parse(rawdata);
-
-        // console.log(results);
         results.forEach((el) => {
           addUniqueCampaigns(el["Название группы объявлений"]);
         });
@@ -65,8 +65,7 @@ app.get('/oldstat',(req,res)=>{
   res.sendFile(path.resolve(__dirname, "html/oldStat.html"));
 })
 app.post('/oldstat',(req,res)=>{
-  console.log(req.body['column'])
-  let filedata = req.file;
+let filedata = req.file;
   let target_path;
   if (!filedata) res.send({ message: "Ошибка при загрузке файла" });
   else {
@@ -78,20 +77,47 @@ app.post('/oldstat',(req,res)=>{
       .pipe(csv())
       .on("data", (data) => results.push(data))
       .on("end", () => {
-        let rawdata = fs.readFileSync("./utils/campaigns.json");
-        const campaigns = JSON.parse(rawdata);
+       
+      console.log(results.length)
+      const test1 = results.slice(0,99)
+      const test2 = results.slice(100, 199)
+        //results.forEach(el=>{
+        //console.log(el)
+        test1.forEach((el=>{
+          dc.AddRowOldStat(req.body['table'], getObj(el), el['Дата создания'])
         
-       // console.log(results);
-      //   results.forEach((el) => {
-      //     addUniqueCampaigns(el["Название группы объявлений"]);
-      //   });
-      //   fs.writeFileSync("./utils/campaigns.json", JSON.stringify(campaigns));
-      // 
+        }))
+        setTimeout(()=>{  test2.forEach((el=>{
+          dc.AddRowOldStat(req.body['table'], getObj(el), el['Дата создания'])
+        
+        }))},10000)
+     
+      //  dc.AddRowOldStat(req.body['table'], getObj(el), el['Дата создания'])
+     //   })
+        
+      // console.log(results);
+      
     });
   }
 })
 app.get('/amo/auth',(req,res)=>{
   res.send('amo')
+})
+app.get("/add/source",(req,res)=> {
+  res.sendFile(path.resolve(__dirname, "html/addSource.html"));
+})
+app.post("/add/source",(req,res)=> {
+ if(!req.body.data){
+   res.sendStatus(404)
+ }
+
+   let fields = JSON.parse(fs.readFileSync("./utils/source.json", "utf-8"));
+  console.log(fields)
+  //  dc.AddColumn(req.body.data['name'],'SalesSourceAmo')
+  //  dc.AddColumn(req.body.data['name'],'LeadsSourceAmo')
+  //  dc.AddColumn(req.body.data['name'],'IncomeSourceAmo')
+ 
+  
 })
 cron.schedule('0 8 11 * * *',()=>{
   // getAccessToken();
