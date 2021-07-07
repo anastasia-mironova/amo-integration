@@ -1,5 +1,6 @@
 import addUniqueCampaigns from "./addUniqueCampaign.js";
 import webhookHandler from "./amo/webhookHandler.js";
+import updateWebhookHandler from "./amo/updateWebhookHandler.js";
 import { getGoogleCampaign } from "./google.js";
 import { getYandexCampaigns } from "./yandex.js";
 import express from "express";
@@ -119,13 +120,23 @@ app.post("/add/source",(req,res)=> {
  
   
 })
-cron.schedule('0 8 11 * * *',()=>{
+cron.schedule('0 24 11 * * *',()=>{
   // getAccessToken();
-  getGoogleCampaign()
-  getYandexCampaigns();
+  // getGoogleCampaign()
+  // getYandexCampaigns();
+  tables.source.forEach((el) => {
+    dc.AddRow(el)
+  })
+  tables.campaign.forEach((el) => {
+    dc.AddRow(el)
+    
+  })
+  console.log("add row")
+  
 
 })
 app.post("/webhook", webhookHandler);
+app.post("/leads/update", updateWebhookHandler);
 app.get("/", (req, res) => res.sendFile(path.resolve(__dirname, 'html/index.html')));
 //getToken()
 

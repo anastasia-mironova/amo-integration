@@ -10,7 +10,7 @@ export default function addUniqueCampaign(value) {
 
   if (!campaigns.includes(value)) {
     campaigns.push(value);
-    fs.writeFileSync("./campaigns.json", JSON.stringify(campaigns));
+    fs.writeFileSync("./utils/campaigns.json", JSON.stringify(campaigns));
     dc.addColumn(value, "SalesCampaignAmo")
     dc.addColumn(value, "LeadsCampaignAmo")
     dc.addColumn(value, "IncomeCampaignAmo")

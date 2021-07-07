@@ -150,6 +150,7 @@ class DataController {
     } catch (error) {
       console.log("test");
       console.error(error.stack);
+      
     } finally {
       await client.end();
       // closes connection

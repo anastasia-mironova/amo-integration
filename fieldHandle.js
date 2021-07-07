@@ -9,12 +9,13 @@ export const checkSource = (data) => {
   const filterReply = [];
   if (typeof data == "undefined") return ["Нераспознанный источник"];
   let isUnrecognized;
-
   fields.forEach((field, index) => {
     if (!field["field"]) {
     } else {
       res1 = data.findIndex((el, index) => {
-        return el.includes(field["field"][0]);
+        console.log(el.toString())
+
+        return el.toString().includes(field["field"][0]);
       });
 
       if (res1 > -1) {
@@ -25,7 +26,7 @@ export const checkSource = (data) => {
       }
       if (field["field"][1] && res1) {
         res2 = data.findIndex((el, index) => {
-          return el.includes(field["field"][1]);
+          return el.toString().includes(field["field"][1]);
         });
 
         if (res2 > -1) {
@@ -73,7 +74,7 @@ export const checkCampaign = (data) => {
     campaigns = JSON.parse(rawdata);
     data.forEach((field) => {
       campaigns.forEach((camp) => {
-        if (field.includes(camp)) {
+        if (field.toString().includes(camp.toString())) {
           campaignName = camp;
         }
       });

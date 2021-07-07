@@ -1,10 +1,13 @@
 import https from "https";
 import fs from "fs";
-async function doRequest(leadId) {
+async function doRequest(leadId,typeRequest) {
+  //console.log("test", typeRequest)
   return await new Promise((resolve, reject) => {
     let rawdata = fs.readFileSync("./utils/amo_token.json");
     const tokens = JSON.parse(rawdata);
-    const values = [];
+    let valuesForCheck =[];
+    let customValObject;
+  
     const options = {
       hostname: "marketingmcpr.amocrm.ru",
       port: 443,
@@ -21,24 +24,28 @@ async function doRequest(leadId) {
 
       res
         .on("data", (d) => {
-          process.stdout.write(d)
+         // process.stdout.write(d)
           if (res.statusCode == 200) {
+            
+              //console.log("updtkjnvrksfvn")
+              customValObject = JSON.parse(JSON.stringify(JSON.parse(d)));
+             // console.log("new custom", values); 
+             
             // const customFields = JSON.parse(d)["custom_fields_values"];
             const customFields = JSON.parse(d)["custom_fields_values"];
             // console.log(customFields)
-
             if (!customFields) return;
             customFields.forEach((value) => {
               if (value["values"][0]["value"]) {
-                values.push(value["values"][0]["value"]);
+                valuesForCheck.push(value["values"][0]["value"]);
               }
             });
-            // console.log("CUSTOM", values);
+        
+             
           }
         })
         .on("end", () => {
-          // console.log(values)
-          resolve(values);
+          resolve([valuesForCheck, customValObject]);
         })
         .on("error", (error) => {
           console.error(error);
@@ -50,9 +57,9 @@ async function doRequest(leadId) {
     req.end();
   });
 }
-const getLead = async (leadId) => {
-  return await doRequest(leadId);
+const getLead = async (leadId, typeRequest) => {
+  return await doRequest(leadId,typeRequest);
 };
 
-//export default getLead;
-getLead(13842419)
+export default getLead;
+//getLead(13842419)

@@ -16,7 +16,7 @@ export default  function webhookHandler(req, res) {
       var post = qs.parse(body);
       leadId = post["leads[add][0][id]"];
       if (leadId) {
-        console.log("lead id", leadId)
+        console.log("lead id", leadId,"upd")
         const customValue =   getLead(leadId).then(res=>{
           console.log(res)
            const source = checkSource(res);
