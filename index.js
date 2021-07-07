@@ -121,7 +121,7 @@ app.post("/add/source",(req,res)=> {
   
 })
 cron.schedule('0 24 11 * * *',()=>{
-  // getAccessToken();
+   getAccessToken();
   // getGoogleCampaign()
   // getYandexCampaigns();
   tables.source.forEach((el) => {
