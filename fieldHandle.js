@@ -62,6 +62,7 @@ export const checkSource = (data) => {
   if (fields[fields.length - 1]["unrecognized"]["count"] > 0) {
     sourceColumns.push(fields[fields.length - 1]["unrecognized"]["column"]);
   }
+  console.log(fields)
   return sourceColumns;
 };
 

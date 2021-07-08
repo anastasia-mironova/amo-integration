@@ -14,6 +14,9 @@ import pg from "pg";
 import cron from "node-cron"
 import { getObj} from "./oldStatHelper.js";
 import {tables} from "./utils/tables.js"
+import getToken from "./amo/getAmoTokens.js";
+import dc from "./dataController.js";
+import getAccessToken from "./amo/getAccessAmoToken.js";
 dotenv.config();
 
 const app = express();
@@ -30,10 +33,11 @@ const storageConfig = multer.diskStorage({
 });
 app.use(multer({ storage: storageConfig }).single("filedata"));
 import { vKAuthFirstStep, vkLoginComplete } from "./vk.js"; // импортируем наш метод
-import getToken from "./amo/getAmoTokens.js";
-import dc from "./dataController.js";
-//import getAccessToken from "./amo/getAccessAmoToken.js";
 
+app.get("/amo/auth",(req,res)=>{
+  res.sendFile(path.resolve(__dirname, "html/auth.html"));
+})
+app.post("/amo/auth",getToken)
 app.get("/login/vk", (req, res) => vKAuthFirstStep(res));
 app.get("/login/vk/complete", vkLoginComplete);
 
@@ -101,25 +105,35 @@ let filedata = req.file;
     });
   }
 })
-app.get('/amo/auth',(req,res)=>{
-  res.send('amo')
-})
+
 app.get("/add/source",(req,res)=> {
   res.sendFile(path.resolve(__dirname, "html/addSource.html"));
 })
 app.post("/add/source",(req,res)=> {
  if(!req.body.data){
    res.sendStatus(404)
+   
  }
 
+
+   let clientData = JSON.parse(req.body.data)
+
    let fields = JSON.parse(fs.readFileSync("./utils/source.json", "utf-8"));
+  fields.splice(fields.length-2, 0,{
+    column: clientData.name,
+    field: [ ...clientData.keywords.split(",") ],
+    count: 0
+  })
   console.log(fields)
+
   //  dc.AddColumn(req.body.data['name'],'SalesSourceAmo')
   //  dc.AddColumn(req.body.data['name'],'LeadsSourceAmo')
   //  dc.AddColumn(req.body.data['name'],'IncomeSourceAmo')
  
   
 })
+
+
 cron.schedule('0 24 11 * * *',()=>{
    getAccessToken();
   // getGoogleCampaign()
@@ -131,13 +145,14 @@ cron.schedule('0 24 11 * * *',()=>{
     dc.AddRow(el)
     
   })
-  console.log("add row")
+  
   
 
 })
 app.post("/webhook", webhookHandler);
 app.post("/leads/update", updateWebhookHandler);
 app.get("/", (req, res) => res.sendFile(path.resolve(__dirname, 'html/index.html')));
+
 //getToken()
 
 const options = {

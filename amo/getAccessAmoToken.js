@@ -45,5 +45,5 @@ import fs from 'fs';
     req.write(data)
     req.end()
 }
-getAccessToken()
+export default getAccessToken
 

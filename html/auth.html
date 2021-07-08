@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Source</title>
+    <title>Auth</title>
     <style>
       html {
         height: 100%;
@@ -17,7 +17,7 @@
         color: #ffffff;
       }
 
-      div {
+      .main {
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -25,14 +25,15 @@
         font-family: "Roboto Mono", monospace;
       }
       input[type="submit"] {
-        width: 120px;
+        width: 300px;
         height: 40px;
         border-radius: 6px;
         background-color: #ffffff;
-        margin-top: 30px;
+        margin-top: 10px;
         font-family: "Roboto Mono", monospace;
         font-weight: 500;
-        font-size: 17px;
+        font-size: 17px; 
+        
       }
       input[type="submit"]:hover {
         background-color: blue;
@@ -49,41 +50,48 @@
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
-      }
-      #input-wrapper .wrapper:first-of-type {
         margin-bottom: 20px;
       }
-      input[type="text"] {
+     
+      input[type="text"], input[type="url"] {
         width: 100%;
         height: 30px;
         margin-top: 10px;
         border-radius: 5px;
       }
-      input[type="text"]:invalid {
+      input[type="text"]:invalid , input[type="url"]:invalid{
         border: 3.5px solid rgb(255, 0, 149);
       }
-      input[type="text"]:valid {
+      input[type="text"]:valid,input[type="url"]:valid {
         border: 3.5px solid rgb(12, 146, 0);
       }
     </style>
   </head>
   <body>
-    <div>
-      <h1>Добавление источника</h1>
+    <div class= "main">
+      <h1>Авторизация интеграции</h1>
       <form
         method="POST"
-        action="https://localhost:3000/add/source"
+        action="https://localhost:3000/amo/auth"
         enctype="multipart/form-data"
         id="input-wrapper"
       >
         <div class="wrapper">
-          <label for="name">Название столбца</label>
-          <input required type="text" class="name" id="name" pattern="\S+" />
+          <label for="name">Секретный ключ</label>
+          <input required type="text" class="client_secret" id="client_secret" pattern="\S+" />
         </div>
         <div class="wrapper">
-          <label for="keywords">Варианты значений через запятую</label>
-          <input required type="text" class="keywords" id="keywords" />
+            <label for="name">ID интеграции</label>
+            <input required type="text" class="client_id" id="client_id" pattern="\S+" />
         </div>
+        <div class="wrapper">
+            <label for="name">Код авторизации</label>
+            <input required type="text" class="code" id="code" pattern="\S+" />
+          </div>
+          <div class="wrapper">
+            <label for="name">Сыллка на перенаправление</label>
+            <input required type="url" class="redirect_uri" id="redirect_uri" pattern="\S+" />
+          </div>
 
         <input type="submit" />
       </form>
@@ -93,27 +101,26 @@
 
       formElem.onsubmit = async (e) => {
         e.preventDefault();
-        let name = document.getElementById("name");
-        let keywords = document.getElementById("keywords");
+        
+        const code = document.getElementById("code");
+        const client_secret = document.getElementById("client_secret");
+        const client_id = document.getElementById("client_id");
+        const redirect_uri = document.getElementById("redirect_uri"); 
         const val = {
-          name: name.value,
-          keywords: keywords.value,
+            client_id: client_id.value,
+            client_secret: client_secret.value,
+            redirect_uri: redirect_uri.value,
+            code: code.value,
         };
-        console.log(val);
+        console.log(val.toString());
         let data = new FormData();
         data.append("data", JSON.stringify(val));
-        let response = await fetch("https://localhost:3000/add/source", {
-          mode: 'no-cors',
+        let response = await fetch("https://localhost:3000/amo/auth", {
           method: "POST",
           body: data,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            Accept:
-              "application/json, application/xml, text/plain, text/html, *.*",
-          },
         });
-        let result = await response.json();
-        alert(result.message);
+       let result = await response.json();
+       alert(result.message);
       };
     </script>
   </body>

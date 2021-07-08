@@ -19,8 +19,8 @@ export default  function webhookHandler(req, res) {
         console.log("lead id", leadId,"upd")
         const customValue =   getLead(leadId).then(res=>{
           console.log(res)
-           const source = checkSource(res);
-           const campaign=checkCampaign(res);
+           const source = checkSource(res[0]);
+           const campaign=checkCampaign(res[0]);
            source.forEach((element)=>{
               dc.UpdateValue(element, 'LeadsSourceAmo', 1)
            })
